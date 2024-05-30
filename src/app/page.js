@@ -2,9 +2,18 @@
 
 import axios from 'axios';
 import { useState } from 'react';
-import CovidData from './component/CovidData';
-import Loader from './component/Loader';
-import CustomButton from './component/CustomButton';
+import dynamic from 'next/dynamic';
+
+const CovidData = dynamic(() => import('./component/CovidData'), {
+  loading: () => <p>Loading data...</p>,
+});
+const Loader = dynamic(() => import('./component/Loader'), {
+  ssr: false,
+});
+const CustomButton = dynamic(() => import('./component/CustomButton'), {
+  loading: () => <p>Loading button...</p>,
+  ssr: false,
+});
 
 export default function Home() {
   const [data, setData] = useState(null);
@@ -40,12 +49,6 @@ export default function Home() {
           {!data ? (
             <>
               <CustomButton variant='primary' onClick={fetchData}>
-                Fetch Data
-              </CustomButton>
-              <CustomButton variant='secondary' onClick={fetchData}>
-                Fetch Data
-              </CustomButton>
-              <CustomButton variant='danger' onClick={fetchData}>
                 Fetch Data
               </CustomButton>
             </>
