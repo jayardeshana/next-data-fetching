@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import CovidData from './component/CovidData';
 import Loader from './component/Loader';
+import CustomButton from './component/CustomButton';
 
 export default function Home() {
   const [data, setData] = useState(null);
@@ -37,9 +38,17 @@ export default function Home() {
       ) : (
         <>
           {!data ? (
-            <button className='button-container' onClick={fetchData}>
-              Fetch Data
-            </button>
+            <>
+              <CustomButton variant='primary' onClick={fetchData}>
+                Fetch Data
+              </CustomButton>
+              <CustomButton variant='secondary' onClick={fetchData}>
+                Fetch Data
+              </CustomButton>
+              <CustomButton variant='danger' onClick={fetchData}>
+                Fetch Data
+              </CustomButton>
+            </>
           ) : (
             <CovidData data={data} />
           )}
